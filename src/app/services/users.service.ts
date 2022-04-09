@@ -1,39 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { User } from '../models/User';
 
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private isAuthenticatedSource = new BehaviorSubject<boolean>(false);
-  public isAuthenticated = this.isAuthenticatedSource.asObservable();
-  constructor(
-    private afs: AngularFirestore,
-    public afAuth: AngularFireAuth,
-    private router: Router
-  ) {
-    this.afAuth.authState.pipe(
-      map((auth) =>
-        this.isAuthenticatedSource.next(auth !== null ? true : false)
-      )
-    );
-  }
+  constructor(public afAuth: AngularFireAuth, private router: Router) {}
 
   signup(user: User) {
     return this.afAuth
       .createUserWithEmailAndPassword(user.email, user.password)
-      .then((result) =>
-        result.user?.updateProfile({ displayName: user.username })
-      );
+      .then((result) => {
+        result.user?.updateProfile({ displayName: user.username });
+        this.logout();
+      });
   }
 
   login(email: string, password: string) {
