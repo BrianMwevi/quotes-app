@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row" *ngIf="quotes.length > 0">
+    <div class="col-lg-6" *ngFor="let quote of quotes">
+      <div class="card card-body my-3">
+        <div class="card-title">
+          <div class="row no-gutters">
+            <div class="col-11 col-lg-11 m-0 p-0">
+              <p>
+                <strong>{{ quote.text }}</strong>
+              </p>
+            </div>
+            <div
+              class="col-1 m-0 p-0"
+              *ngIf="user && user.uid === quote.author.id"
+            >
+              <button class="btn delete-quote" (click)="delete(quote)">
+                <i class="fa fa-trash text-right text-danger"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer mt-2 pl-2">
+          <small
+            >Quoted by:
+            <strong>{{ quote.author.username | titlecase }}</strong></small
+          ><br />
+          <small>Date: {{ quote.createdDate | date: "medium" }}</small>
+        </div>
+        <div class="card-text pl-2">
+          <div class="row mt-2">
+            <div class="col-3 col-sm-3">
+              <button
+                class="btn vote-btn btn-sm btn-outline-info"
+                (click)="
+                  user &&
+                    user.uid !== quote.author.id &&
+                    upvote(quote, user.uid)
+                "
+              >
+                <span class="fa fa-arrow-up vote upvote"></span>
+              </button>
+              <span class="votes-count"> &nbsp;{{ quote.likes?.length }} </span>
+            </div>
+            <div class="col-3 col-sm-3">
+              <button
+                class="btn vote-btn btn-sm btn-outline-danger"
+                (click)="
+                  user &&
+                    user.uid !== quote.author.id &&
+                    downvote(quote, user.uid)
+                "
+              >
+                <span class="fa fa-arrow-down vote downvote"></span></button
+              ><span class="votes-count"
+                >&nbsp;{{ quote.dislikes?.length }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="quotes.length == 0">
+    <div class="col-lg-6 mx-auto">
+      <h2 class="text-center mt-5">No Quotes, yet</h2>
+    </div>
+  </div>
+</div>
