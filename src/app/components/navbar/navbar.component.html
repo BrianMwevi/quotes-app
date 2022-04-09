@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-danger sticky-top">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand text-white">QuotesApp</a>
+    <button
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="#main-nav"
+      type="button"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="main-nav">
+      <ul *ngIf="!user" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a routerLink="quote/add" class="nav-link">Add Quote</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/account" class="nav-link">Account</a>
+        </li>
+      </ul>
+      <ul *ngIf="user" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a routerLink="quote/add" class="nav-link">Add Quote</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/profile" class="nav-link">Profile</a>
+        </li>
+
+        <button (click)="logout()" class="btn btn-sm">
+          Hi {{ user.displayName | titlecase }}, Logout
+        </button>
+      </ul>
+    </div>
+  </div>
+</nav>
