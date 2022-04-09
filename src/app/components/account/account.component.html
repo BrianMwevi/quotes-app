@@ -1,0 +1,200 @@
+<div class="account">
+  <div class="container">
+    <div class="row">
+      <div class="col-10 col-lg-5 col-md-8 text-dark mx-auto">
+        <!-- SIGNUP FORM -->
+        <div
+          class="form-side signup p-5 gradient"
+          [ngClass]="isLoginForm ? 'form-side--back' : 'form-side--front'"
+        >
+          <h2 class="text-center pb-3 text-danger">
+            <strong>Create Account</strong>
+          </h2>
+          <form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm)">
+            <div class="form-group">
+              Username
+              <input
+                type="text"
+                name="username"
+                #signupUsername="ngModel"
+                placeholder="Enter username"
+                required
+                minlength="4"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': signupUsername.errors && signupUsername.touched
+                }"
+                [(ngModel)]="user.username"
+              />
+              <div
+                [hidden]="!signupUsername.errors?.['required']"
+                class="invalid-feedback text-danger"
+              >
+                Username required
+              </div>
+              <div
+                [hidden]="!signupUsername.errors?.['minlength']"
+                class="invalid-feedback text-danger"
+              >
+                Must be at least 5 characters
+              </div>
+            </div>
+            <div class="form-group">
+              Email Address
+              <input
+                type="email"
+                name="email"
+                #signupEmail="ngModel"
+                placeholder="Enter email address"
+                required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': signupEmail.errors && signupEmail.touched
+                }"
+                [(ngModel)]="user.email"
+              />
+              <div
+                [hidden]="!signupEmail.errors?.['required']"
+                class="invalid-feedback text-danger"
+              >
+                Email required
+              </div>
+              <div
+                [hidden]="!signupEmail.errors?.['pattern']"
+                class="invalid-feedback text-danger"
+              >
+                Enter a valid email address
+              </div>
+            </div>
+            <div class="form-group">
+              Password
+              <input
+                type="password"
+                name="password"
+                #signupPassword="ngModel"
+                placeholder="Enter password"
+                required
+                minlength="8"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': signupPassword.errors && signupPassword.touched
+                }"
+                [(ngModel)]="user.password"
+              />
+              <div
+                [hidden]="!signupPassword.errors?.['required']"
+                class="invalid-feedback text-danger"
+              >
+                Password required
+              </div>
+              <div
+                [hidden]="!signupPassword.errors?.['minlength']"
+                class="invalid-feedback text-danger"
+              >
+                Must be at least 8 characters
+              </div>
+            </div>
+
+            <div class="text-center">
+              <input
+                type="submit"
+                value="Signup"
+                class="btn px-4 py-2 mt-4 btn-danger"
+              />
+            </div>
+          </form>
+          <p class="text-center pt-4">
+            Have an account?
+            <strong
+              (click)="isLoginForm = !isLoginForm; signupForm.reset()"
+              class="toggler to-login text-danger"
+              >Login</strong
+            >
+          </p>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div
+          class="form-side login gradient p-5"
+          [ngClass]="isLoginForm ? '' : 'form-side--back'"
+        >
+          <h2 class="text-center text-danger pb-3">
+            <strong>Login</strong>
+          </h2>
+          <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+            <div class="form-group">
+              Email Address
+              <input
+                type="email"
+                name="email"
+                #loginEmail="ngModel"
+                placeholder="Enter username"
+                required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': loginEmail.errors && loginEmail.touched
+                }"
+                [(ngModel)]="user.email"
+              />
+              <div
+                [hidden]="!loginEmail.errors?.['required']"
+                class="invalid-feedback text-danger"
+              >
+                Email required
+              </div>
+              <div
+                [hidden]="!loginEmail.errors?.['pattern']"
+                class="invalid-feedback text-danger"
+              >
+                Enter a valid emaill address
+              </div>
+            </div>
+            <div class="form-group">
+              Password
+              <input
+                type="password"
+                name="password"
+                #loginPassword="ngModel"
+                placeholder="Enter password"
+                required
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': loginPassword.errors && loginPassword.touched
+                }"
+                [(ngModel)]="user.password"
+              />
+              <div
+                [hidden]="!loginPassword.errors?.['required']"
+                class="invalid-feedback text-danger"
+              >
+                Password required
+              </div>
+            </div>
+            <div class="text-center">
+              <input
+                type="submit"
+                value="Login"
+                class="btn px-4 py-2 mt-4 btn-danger"
+              />
+            </div>
+          </form>
+          <div class="text-center mt-4">
+            <a routerLink="/account" class="nav-link text-danger"
+              ><strong>Forgot Password?</strong></a
+            >
+            <p class="pt-3">
+              Don't have an account?
+              <strong
+                (click)="isLoginForm = !isLoginForm; loginForm.reset()"
+                class="toggler to-signup text-danger"
+                >Signup</strong
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
