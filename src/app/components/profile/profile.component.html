@@ -1,1 +1,46 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="row" *ngIf="userQuotes.length !== 0; else noQuotes">
+    <div class="col-lg-6 mx-auto" *ngFor="let quote of userQuotes">
+      <h2 class="text-center py-5 text-danger">Your Published Quotes</h2>
+      <div class="card card-body quote-card my-3">
+        <div class="card-title">
+          <div class="row no-gutters">
+            <div class="col-11 col-lg-11 m-0 p-0">
+              <p>
+                <strong>{{ quote.text }}</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer mt-2 pl-2">
+          <small>Date: {{ quote.createdDate | date: "medium" }}</small>
+        </div>
+        <div class="card-text pl-2">
+          <div class="row mt-2">
+            <div class="col-3 col-sm-3">
+              <button class="btn vote-btn btn-sm btn-outline-info">
+                <span class="fa fa-arrow-up vote upvote"></span>
+              </button>
+              <span class="votes-count"> &nbsp;{{ quote.likes?.length }} </span>
+            </div>
+            <div class="col-3 col-sm-3">
+              <button class="btn vote-btn btn-sm btn-outline-danger">
+                <span class="fa fa-arrow-down vote downvote"></span></button
+              ><span class="votes-count"
+                >&nbsp;{{ quote.dislikes?.length }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noQuotes>
+    <div class="row mt-5">
+      <div class="col-lg-6 text-center mx-auto mt-5">
+        <h2>You don't have any quotes</h2>
+        <button class="btn btn-danger">Create A Quote</button>
+      </div>
+    </div>
+  </ng-template>
+</div>
