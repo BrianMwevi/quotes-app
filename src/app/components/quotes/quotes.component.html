@@ -1,12 +1,15 @@
 <div class="container">
-  <div class="row" *ngIf="quotes.length > 0">
+  <div class="row" *ngIf="!loading && quotes.length > 0">
     <div class="col-lg-6" *ngFor="let quote of quotes">
       <div class="card card-body quote-card my-3">
         <div class="card-title">
           <div class="row no-gutters">
             <div class="col-11 col-lg-11 m-0 p-0">
-              <p>
-                <strong>{{ quote.text }}</strong>
+              <p class="quote-text">
+                <strong
+                  ><span class="quotation text-danger">"</span>{{ quote.text
+                  }}<span class="quotation text-danger">"</span></strong
+                >
               </p>
             </div>
             <div
@@ -24,12 +27,13 @@
             >Quoted by:
             <strong>{{ quote.author.username | titlecase }}</strong></small
           ><br />
-          <small>Date: {{ quote.createdDate | date: "medium" }}</small>
+          <small>Date: {{ quote.createdDate | date: "short" }}</small>
         </div>
         <div class="card-text pl-2">
           <div class="row mt-2">
-            <div class="col-3 col-sm-3">
+            <div class="col-4 col-sm-3 col-lg-3">
               <button
+                [disabled]="quote.author.id === user?.uid"
                 class="btn vote-btn btn-sm btn-outline-info"
                 (click)="
                   user &&
@@ -41,8 +45,9 @@
               </button>
               <span class="votes-count"> &nbsp;{{ quote.likes?.length }} </span>
             </div>
-            <div class="col-3 col-sm-3">
+            <div class="col-4 col-sm-3 col-lg-3">
               <button
+                [disabled]="quote.author.id === user?.uid"
                 class="btn vote-btn btn-sm btn-outline-danger"
                 (click)="
                   user &&
@@ -60,9 +65,9 @@
       </div>
     </div>
   </div>
-  <div class="row" *ngIf="quotes.length == 0">
+  <div class="row" *ngIf="loading">
     <div class="col-lg-6 mx-auto">
-      <h2 class="text-center mt-5">No Quotes, yet</h2>
+      <h2 class="text-center mt-5">Loading quotes...</h2>
     </div>
   </div>
 </div>

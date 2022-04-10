@@ -12,7 +12,8 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./quotes.component.css'],
 })
 export class QuotesComponent implements OnInit {
-  quotes: Quote[] = []
+  loading: boolean = true;
+  quotes: Quote[] = [];
   user: any;
   constructor(
     private quoteService: QuotesService,
@@ -20,8 +21,11 @@ export class QuotesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.quoteService.getQuotes().subscribe((quotes) => (this.quotes = quotes));
-    this.userService.afAuth.user.subscribe((user) => (this.user = user));
+    this.quoteService.getQuotes().subscribe((quotes) => {
+      this.quotes = quotes;
+      this.loading = false;
+    });
+    this.userService.afAuth.authState.subscribe((user) => (this.user = user));
   }
 
   upvote(quote: Quote, userId: string) {
