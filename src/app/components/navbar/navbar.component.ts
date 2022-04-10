@@ -13,10 +13,10 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UsersService) {}
 
   ngOnInit(): void {
-    this.userService.afAuth.user.subscribe((user) => (this.user = user));
+    this.userService.afAuth.authState.subscribe((user) => (this.user = user));
   }
 
   logout(): void {
-    this.userService.logout()
+    this.userService.logout();
   }
 }

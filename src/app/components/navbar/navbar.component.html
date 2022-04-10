@@ -10,14 +10,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="main-nav">
-      <ul *ngIf="!user" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a routerLink="quote/add" class="nav-link">Add Quote</a>
-        </li>
-        <li class="nav-item">
-          <a routerLink="/account" class="nav-link">Account</a>
-        </li>
-      </ul>
       <ul *ngIf="user" class="navbar-nav ml-auto">
         <li class="nav-item">
           <a routerLink="quote/add" class="nav-link">Add Quote</a>
@@ -29,6 +21,14 @@
         <button (click)="logout()" class="btn btn-sm">
           Hi {{ user.displayName | titlecase }}, Logout
         </button>
+      </ul>
+      <ul *ngIf="!user" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a routerLink="quote/add" class="nav-link">Add Quote</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/account" class="nav-link">Account</a>
+        </li>
       </ul>
     </div>
   </div>
