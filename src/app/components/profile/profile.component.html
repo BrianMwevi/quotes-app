@@ -1,7 +1,15 @@
-<div class="container">
-  <div class="row" *ngIf="userQuotes.length !== 0; else noQuotes">
+<div class="container" *ngIf="!loaded">
+  <div class="row">
+    <div class="col-lg-6 text-center mx-auto mt-5">
+      <h2 class="mt-5">Loading quotes ...</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="loaded && userQuotes.length > 0">
+  <h2 class="text-center py-5 text-danger">Your Published Quotes</h2>
+  <div class="row">
     <div class="col-lg-6 mx-auto" *ngFor="let quote of userQuotes">
-      <h2 class="text-center py-5 text-danger">Your Published Quotes</h2>
       <div class="card card-body quote-card my-3">
         <div class="card-title">
           <div class="row no-gutters">
@@ -10,21 +18,35 @@
                 <strong>{{ quote.text }}</strong>
               </p>
             </div>
+            <div
+              class="col-1 m-0 p-0"
+              *ngIf="user && user.uid === quote.author.id"
+            >
+              <button class="btn delete-quote" (click)="delete(quote)">
+                <i class="fa fa-trash text-right text-danger"></i>
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-footer mt-2 pl-2">
-          <small>Date: {{ quote.createdDate | date: "medium" }}</small>
+          <small>Date: {{ quote.createdDate | date: "short" }}</small>
         </div>
         <div class="card-text pl-2">
           <div class="row mt-2">
-            <div class="col-3 col-sm-3">
-              <button class="btn vote-btn btn-sm btn-outline-info">
+            <div class="col-4 col-sm-3 col-lg-3">
+              <button
+                [disabled]="quote.author.id === user?.uid"
+                class="btn vote-btn btn-sm btn-outline-info"
+              >
                 <span class="fa fa-arrow-up vote upvote"></span>
               </button>
               <span class="votes-count"> &nbsp;{{ quote.likes?.length }} </span>
             </div>
-            <div class="col-3 col-sm-3">
-              <button class="btn vote-btn btn-sm btn-outline-danger">
+            <div class="col-4 col-sm-3 col-lg-3">
+              <button
+                [disabled]="quote.author.id === user?.uid"
+                class="btn vote-btn btn-sm btn-outline-danger"
+              >
                 <span class="fa fa-arrow-down vote downvote"></span></button
               ><span class="votes-count"
                 >&nbsp;{{ quote.dislikes?.length }}</span
@@ -35,12 +57,13 @@
       </div>
     </div>
   </div>
-  <ng-template #noQuotes>
-    <div class="row mt-5">
-      <div class="col-lg-6 text-center mx-auto mt-5">
-        <h2>You don't have any quotes</h2>
-        <button class="btn btn-danger">Create A Quote</button>
-      </div>
+</div>
+
+<div class="container" *ngIf="loaded && userQuotes.length === 0">
+  <div class="row mt-5">
+    <div class="col-lg-6 text-center mx-auto mt-5">
+      <h2>You don't have any quotes</h2>
+      <a routerLink="/quote/add" class="btn btn-danger">Create A Quote</a>
     </div>
-  </ng-template>
+  </div>
 </div>

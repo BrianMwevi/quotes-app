@@ -12,7 +12,8 @@ import { Quote } from '../../models/Quote';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  userQuotes: any = [];
+  loaded: boolean = false;
+  userQuotes: any;
   user: any;
 
   constructor(
@@ -22,13 +23,17 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.afAuth.authState.subscribe((user) => (this.user = user));
-    this.quoteService
-      .getQuotes()
-      .subscribe(
-        (quotes) =>
-          (this.userQuotes = quotes.filter(
-            (quote) => quote.author.id === this.user?.uid
-          ))
+    this.quoteService.getQuotes().subscribe((quotes) => {
+      this.userQuotes = quotes.filter(
+        (quote) => quote.author.id === this.user?.uid
       );
+      this.loaded = true;
+    });
+  }
+
+  delete(quote: Quote) {
+    confirm('Are you sure you want to delete?')
+      ? this.quoteService.deleteQuote(quote)
+      : false;
   }
 }
