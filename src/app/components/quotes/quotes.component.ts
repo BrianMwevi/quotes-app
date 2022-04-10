@@ -12,7 +12,7 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./quotes.component.css'],
 })
 export class QuotesComponent implements OnInit {
-  quotes: Quote[] = [];
+  quotes: Quote[] = []
   user: any;
   constructor(
     private quoteService: QuotesService,

@@ -1,3 +1,9 @@
+.quote-card {
+  box-shadow: 0 0 5px rgba(184, 118, 118, 0.5);
+}
+
+
+
 .votes {
   font-size: 1.2rem;
 }
