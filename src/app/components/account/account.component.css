@@ -8,7 +8,7 @@
   overflow: hidden;
   transition: all 0.8s ease;
   backface-visibility: hidden;
-  box-shadow: 0 0 40px rgb(238, 227, 227);
+  box-shadow: 0 0 15px rgba(133, 133, 133, 0.589);
   border-radius: 5px;
   margin-top: 10%;
 }
