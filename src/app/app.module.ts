@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+
+import { TimeagoModule } from 'ngx-timeago';
 import { FlashMessagesModule } from 'flash-messages-angular';
 
 import { UsersService } from './services/users.service';
@@ -32,6 +34,7 @@ import { AddQuoteComponent } from './components/add-quote/add-quote.component';
   imports: [
     BrowserModule,
     FormsModule,
+    TimeagoModule.forRoot(),
     FlashMessagesModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'clientpanel'),
